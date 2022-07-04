@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import ShowTasks from "../components/ShowTasks";
 
 const Home = () => {
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("tasks")) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   return (
     <div>
-      <Header />
+      <Header tasks={tasks} setTasks={setTasks} />
       <ShowTasks />
     </div>
   );
